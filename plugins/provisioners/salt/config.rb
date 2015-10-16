@@ -117,6 +117,12 @@ module VagrantPlugins
         # FIXME: there should be a way to do that a bit smarter
         if guest_type == :windows
           return "C:\\salt\\conf"
+        # Setting the correct salt etc directory location for FreeBSD.
+        elsif guest_type == :freebsd
+          return "/opt/local/etc"
+        # Use the BS_SALT_ETC_DIR environment value if OS is neither of the above
+        elsif ENV['BS_SALT_ETC_DIR'] != nil
+          return "ENV['BS_SALT_ETC_DIR']"
         else
           return "/etc/salt"
         end
